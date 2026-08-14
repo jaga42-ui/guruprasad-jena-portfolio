@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dc2next transpile harness</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..700&family=Saira+Condensed:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@400..700&family=Patrick+Hand&family=JetBrains+Mono:wght@400..700&family=Special+Elite&family=Abril+Fatface&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #17110a; color: #e8e0cf; font-family: "Patrick Hand", cursive; overflow-x: hidden; }
+  #report { position: fixed; z-index: 9999; left: 0; right: 0; top: 0; padding: 10px 14px; font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap; }
+  .ok { background: #14361f; color: #b6f0c4; }
+  .bad { background: #3a1512; color: #ffc9bd; }
+</style>
+</head>
+<body>
+<div id="report">checking…</div>
+<div id="root"></div>
+<script>
+const PAGES = ['../app/contact/page.jsx', '../app/about/page.jsx', '../app/skills/page.jsx', '../app/page.jsx', '../app/projects/page.jsx'];
+const RENDER = new URLSearchParams(location.search).get('render');
+
+function prep(src) {
+  return src
+    .replace(/^'use client';?\s*/m, '')
+    .replace(/^import[^\n]*\n/gm, '')
+    .replace(/^export default function\s+(\w+)\(\)\s*\{[\s\S]*?\n\}\s*$/m, 'window.__Page = Page;');
+}
+
+(async () => {
+  const lines = [];
+  let bad = false, lastPage = null;
+  for (const p of PAGES) {
+    let src;
+    try { src = await (await fetch(p)).text(); }
+    catch (e) { lines.push('SKIP  ' + p + ' (not generated yet)'); continue; }
+    if (src.trim().startsWith('<!DOCTYPE')) { lines.push('SKIP  ' + p + ' (missing)'); continue; }
+    const holes = src.match(/\{\{\s*[\w.$]+\s*\}\}/g);
+    const dc = src.match(/\w+\.dc\.html/g);
+    try {
+      const out = Babel.transform(prep(src), { presets: [['react', { runtime: 'classic' }]] }).code;
+      lines.push('OK    ' + p + '  ' + src.length + ' chars → ' + out.length
+        + (holes ? '  ⚠ UNCONVERTED HOLES ' + JSON.stringify([...new Set(holes)]) : '')
+        + (dc ? '  ⚠ .dc.html REFS ' + JSON.stringify([...new Set(dc)]) : ''));
+      if (holes || dc) bad = true;
+      lastPage = { p, out };
+    } catch (e) {
+      bad = true;
+      lines.push('FAIL  ' + p + '\n      ' + e.message.split('\n').slice(0, 3).join('\n      '));
+    }
+  }
+
+  const rep = document.getElementById('report');
+  rep.className = bad ? 'bad' : 'ok';
+  rep.textContent = (bad ? 'PROBLEMS FOUND\n' : 'ALL PAGES TRANSPILE CLEANLY\n') + lines.join('\n');
+
+  if (RENDER && lastPage) {
+    const target = PAGES.find((p) => p.includes(RENDER));
+    if (target) {
+      const src = await (await fetch(target)).text();
+      const code = Babel.transform(prep(src), { presets: [['react', { runtime: 'classic' }]] }).code;
+      const Starfield = () => React.createElement('canvas', { style: { position: 'absolute', inset: 0, width: '100%', height: '100%' } });
+      try {
+        new Function('React', 'Starfield', 'window', code)(React, Starfield, window);
+        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(window.__Page));
+        rep.style.opacity = '0.85';
+      } catch (e) {
+        rep.className = 'bad';
+        rep.textContent = 'RENDER FAILED: ' + e.message + '\n' + lines.join('\n');
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>
