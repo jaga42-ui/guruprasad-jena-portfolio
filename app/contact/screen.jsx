@@ -135,7 +135,7 @@ class Page extends React.Component {
         <span aria-hidden="true" style={{ width: '1px', height: '0.9rem', background: 'rgba(229,141,85,0.22)' }}></span>
         <a href="https://linkedin.com/in/guruprasadjena" target="_blank" rel="noopener" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.72rem', fontWeight: '500', letterSpacing: '0.16em', color: '#ccbba8', transition: 'color .2s ease' }} className="chv3">LINKEDIN</a>
         <span aria-hidden="true" style={{ width: '1px', height: '0.9rem', background: 'rgba(229,141,85,0.22)' }}></span>
-        <a href="mailto:guruprasadjena989@gmail.com?subject=R%C3%A9sum%C3%A9%20please" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.72rem', fontWeight: '500', letterSpacing: '0.16em', color: '#ccbba8', transition: 'color .2s ease' }} className="chv3">RÉSUMÉ</a>
+        <a href="/guruprasad-jena-resume.pdf" download="Guruprasad-Jena-Resume.pdf" type="application/pdf" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.72rem', fontWeight: '500', letterSpacing: '0.16em', color: '#ccbba8', transition: 'color .2s ease' }} className="chv3">RÉSUMÉ</a>
         <span aria-hidden="true" style={{ flex: '1' }}></span>
         <span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', letterSpacing: '0.14em', whiteSpace: 'nowrap', color: '#a29584' }}>FULL-STACK · TS · NEXT · NODE · MONGO</span>
       </div>
