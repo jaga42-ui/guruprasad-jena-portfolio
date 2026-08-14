@@ -259,6 +259,12 @@ img, svg, video { max-width: 100%; }
 /* Projects' source <style> declares no body font-family — restore the UA default there */
 [data-screen-label="Projects"] { font-family: initial; }
 
+/* The page-turn entrance slides the sheet in from the right, and a transform still
+   counts toward scrollable overflow — enough to flash a horizontal scrollbar for the
+   620ms it runs. `clip` rather than `hidden`: it does not create a scroll container, so
+   sticky positioning inside the Projects drawer keeps working. */
+html, body { overflow-x: clip; }
+
 /* Honour the OS setting: the JS layer already no-ops, this stops the CSS loops. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

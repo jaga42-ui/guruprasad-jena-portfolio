@@ -40,6 +40,7 @@ class Page extends React.Component {
       rebuild: root.querySelector("[data-rebuild]"),
       stack: root.querySelector("[data-stack]"),
       visit: root.querySelector("[data-visit]"), repo: root.querySelector("[data-repo]"),
+      sourceNote: root.querySelector("[data-source-note]"),
       sections: q("[data-plot]")
     };
     this.E.btns.forEach((b) => {
@@ -249,7 +250,7 @@ class Page extends React.Component {
     E.name.textContent = p.name.toUpperCase();
     this.styleName(p);
     this.fitName();
-    E.status.textContent = (p.status || "LIVE") + " \u00b7 PLOTTED AT 1:1";
+    E.status.textContent = (p.status || "LIVE") + (p.shipped ? " \u00b7 " + p.shipped : "") + " \u00b7 PLOTTED AT 1:1";
     E.tag.textContent = p.tag;
     if (this.reduced) { this.settleHead(); if (done) done(); return; }
     const rl = this.len(E.rule);
@@ -416,6 +417,12 @@ class Page extends React.Component {
     E.visit.style.display = p.live ? "" : "none";
     E.repo.href = p.repo || "#";
     E.repo.style.display = p.repo ? "" : "none";
+    /* A missing Source link reads as nothing to show. Say why instead. */
+    if (E.sourceNote) {
+      const note = !p.repo && p.repoNote ? p.repoNote : "";
+      E.sourceNote.textContent = note;
+      E.sourceNote.style.display = note ? "" : "none";
+    }
     [E.tag, E.status].concat(E.nums, E.decT).forEach((el) => { if (el) el.style.color = p.accent; });
     E.grows.forEach((g) => { g.style.background = p.accent; });
     if (E.archLines[0]) E.archLines[0].setAttribute("stroke", p.accent);
@@ -580,6 +587,7 @@ class Page extends React.Component {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '1.5rem' }}>
         <a data-visit href="https://www.umbrix.in/" target="_blank" rel="noopener" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '0.84rem', fontWeight: '600', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#e58d55', borderBottom: '1.5px solid rgba(229,141,85,0.4)', paddingBottom: '0.15rem', width: 'fit-content' }}>Visit site ↗</a>
         <a data-repo href="#" target="_blank" rel="noopener" style={{ display: 'none', fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '0.84rem', fontWeight: '600', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#b0a08c', borderBottom: '1.5px solid rgba(229,141,85,0.2)', paddingBottom: '0.15rem', width: 'fit-content' }}>Source ↗</a>
+        <p data-source-note style={{ display: 'none', margin: '0.15rem 0 0', maxWidth: '13rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.58rem', lineHeight: '1.85', letterSpacing: '0.03em', color: '#8d8272' }}></p>
       </div>
     </aside>
 

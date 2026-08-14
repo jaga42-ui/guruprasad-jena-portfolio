@@ -10,7 +10,7 @@
    listed in tools/dc2next.js plus the CSS union below, which collapses the
    rules the five sources share and scopes the ones they disagree on.        */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, copyFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { convert } from './dc2next.mjs';
@@ -79,6 +79,12 @@ for (const p of PAGES) {
 }
 
 writeFileSync(join(ROOT, 'app/hover.css'), hoverOut.join('\n'));
+
+/* The Projects sheet lazily imports its case files as a sibling module. That file is data,
+   not markup, so the converter never touches it — but it still has to track the design
+   folder, or an edit to the case copy silently fails to ship. Copy it every run. */
+copyFileSync(join(SRC, 'projects-plot.js'), join(ROOT, 'app/projects/projects-plot.js'));
+console.log('app/projects/projects-plot.js  copied from design/');
 
 /* -------------------------------------------------------------- globals.css */
 
@@ -221,6 +227,12 @@ const out = [
   '   Order is load-bearing — see the note in tools/build.mjs before rearranging. */',
   '',
   body,
+  '',
+  '/* The page-turn entrance slides the sheet in from the right, and a transform still',
+  '   counts toward scrollable overflow — enough to flash a horizontal scrollbar for the',
+  '   620ms it runs. `clip` rather than `hidden`: it does not create a scroll container, so',
+  '   sticky positioning inside the Projects drawer keeps working. */',
+  'html, body { overflow-x: clip; }',
   '',
   '/* Honour the OS setting: the JS layer already no-ops, this stops the CSS loops. */',
   '@media (prefers-reduced-motion: reduce) {',
