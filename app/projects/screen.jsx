@@ -618,12 +618,12 @@ class Page extends React.Component {
 
       <section data-plot style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.3fr) minmax(0,1fr)', gap: 'clamp(1.8rem,3vw,3rem)', marginTop: '2.6rem' }}>
         <div>
-          <p data-sum style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '1.04rem', lineHeight: '1.78', color: '#ddd1bd', textWrap: 'pretty' }}>An installable job platform for Indian freshers: listings are pulled on a schedule from Lever, Adzuna and Jooble, passed through a scam filter before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.</p>
+          <p data-sum style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '1.04rem', lineHeight: '1.78', color: '#ddd1bd', textWrap: 'pretty' }}>An installable job platform for Indian freshers: listings are polled from four public ATS APIs — Greenhouse, Lever, Ashby and SmartRecruiters — plus the Adzuna aggregator across 18 India shards, scam-scored before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.</p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
-          <div data-stat style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem' }}><span data-num style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '2.6rem', fontWeight: '700', lineHeight: '0.9', color: '#e58d55' }}>3</span><span data-lab style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', lineHeight: '1.6', letterSpacing: '0.08em', color: '#b0a08c' }}>provider APIs ingested</span></div>
+          <div data-stat style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem' }}><span data-num style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '2.6rem', fontWeight: '700', lineHeight: '0.9', color: '#e58d55' }}>160</span><span data-lab style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', lineHeight: '1.6', letterSpacing: '0.08em', color: '#b0a08c' }}>companies polled by API</span></div>
           <div data-stat style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem' }}><span data-num style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '2.6rem', fontWeight: '700', lineHeight: '0.9', color: '#e58d55' }}>0</span><span data-lab style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', lineHeight: '1.6', letterSpacing: '0.08em', color: '#b0a08c' }}>listings scraped from pages</span></div>
-          <div data-stat style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem' }}><span data-num style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '2.6rem', fontWeight: '700', lineHeight: '0.9', color: '#e58d55' }}>2</span><span data-lab style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', lineHeight: '1.6', letterSpacing: '0.08em', color: '#b0a08c' }}>sides: seekers and recruiters</span></div>
+          <div data-stat style={{ display: 'flex', alignItems: 'baseline', gap: '0.85rem' }}><span data-num style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '2.6rem', fontWeight: '700', lineHeight: '0.9', color: '#e58d55' }}>11,500</span><span data-lab style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.64rem', lineHeight: '1.6', letterSpacing: '0.08em', color: '#b0a08c' }}>postings the filter was tested on</span></div>
         </div>
       </section>
 
@@ -640,7 +640,7 @@ class Page extends React.Component {
           </g>
           <g data-frame>
             <path data-line d="M650 16 H990 V112 H650 Z" fill="none" stroke="rgba(200,187,159,0.2)" strokeWidth="1" />
-            <text x="664" y="38" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '15px', letterSpacing: '0.22em', fill: '#9c8f7c' }}>PROVIDER APIS</text>
+            <text x="664" y="38" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '15px', letterSpacing: '0.22em', fill: '#9c8f7c' }}>ATS APIS + ADZUNA</text>
           </g>
           <g data-frame>
             <path data-line d="M650 240 H990 V444 H650 Z" fill="none" stroke="rgba(200,187,159,0.2)" strokeWidth="1" />
@@ -656,7 +656,7 @@ class Page extends React.Component {
           </g>
           <g data-plate>
             <path data-line d="M300 46 H490 V98 H300 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
-            <text x="395" y="80" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>Recruiter</text>
+            <text x="395" y="80" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>Google sign-in</text>
           </g>
           <g data-plate>
             <path data-line d="M120 176 H420 V228 H120 Z" fill="none" stroke="rgba(229,141,85,0.8)" strokeWidth="1.4" />
@@ -674,7 +674,7 @@ class Page extends React.Component {
           </g>
           <g data-plate>
             <path data-line d="M216 376 H376 V428 H216 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
-            <text x="296" y="409" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '21px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Marketplace</text>
+            <text x="296" y="409" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '21px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Match scoring</text>
           </g>
           <g data-plate>
             <path data-line d="M396 376 H596 V428 H396 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
@@ -687,15 +687,15 @@ class Page extends React.Component {
           </g>
           <g data-plate>
             <path data-line d="M664 46 H764 V98 H664 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
-            <text x="714" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '21px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Lever</text>
+            <text x="714" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '18px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Greenhouse</text>
           </g>
           <g data-plate>
             <path data-line d="M774 46 H874 V98 H774 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
-            <text x="824" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '21px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Adzuna</text>
+            <text x="824" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '18px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Lever</text>
           </g>
           <g data-plate>
             <path data-line d="M884 46 H984 V98 H884 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
-            <text x="934" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '21px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Jooble</text>
+            <text x="934" y="79" textAnchor="middle" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '18px', fontWeight: '600', letterSpacing: '0.03em', fill: '#e7ddc8' }}>Adzuna</text>
           </g>
           <g data-plate>
             <path data-line d="M690 276 H950 V328 H690 Z" fill="none" stroke="rgba(200,187,159,0.42)" strokeWidth="1.2" />
@@ -1143,7 +1143,7 @@ class Page extends React.Component {
           </g>
           <g data-hang>
             <path data-line d="M470 150 V240" stroke="#b0a08c" strokeWidth="1.1" opacity="0.65" />
-            <text data-side x="470" y="262" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '23px', fontWeight: '600', letterSpacing: '0.03em', fill: '#ddd1bd' }}>Marketplace</text>
+            <text data-side x="470" y="262" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '23px', fontWeight: '600', letterSpacing: '0.03em', fill: '#ddd1bd' }}>Match scoring</text>
             <text data-sidesub x="470" y="288" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '17px', letterSpacing: '0.04em', fill: '#b0a08c' }}>listings · applications</text>
           </g>
           <g data-hang>
@@ -1162,8 +1162,8 @@ class Page extends React.Component {
             <path data-line d="M960 520 V160" stroke="#b0a08c" strokeWidth="1" opacity="0.42" />
             <path data-line d="M40 502 V538" stroke="#b0a08c" strokeWidth="1" opacity="0.4" />
             <circle data-dot cx="40" cy="520" r="4" fill="#e58d55" /><circle data-dot cx="400" cy="520" r="4" fill="#e58d55" /><circle data-dot cx="700" cy="520" r="4" fill="#e58d55" />
-            <text data-node x="40" y="496" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>Lever · Adzuna · Jooble</text>
-            <text data-sub x="40" y="468" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '18px', letterSpacing: '0.04em', fill: '#baa792' }}>three provider apis</text>
+            <text data-node x="40" y="496" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>ATS APIs · Adzuna</text>
+            <text data-sub x="40" y="468" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '18px', letterSpacing: '0.04em', fill: '#baa792' }}>four boards + one aggregator</text>
             <text data-node x="400" y="496" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>Cron job</text>
             <text data-sub x="400" y="468" style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '18px', letterSpacing: '0.04em', fill: '#baa792' }}>one job per source</text>
             <text data-node x="700" y="496" style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '26px', fontWeight: '600', letterSpacing: '0.03em', fill: '#f5efe7' }}>Scam filter</text>
@@ -1183,10 +1183,10 @@ class Page extends React.Component {
 
       <section data-plot style={{ marginTop: 'clamp(2.6rem,5vw,4rem)' }}>
         <p style={{ margin: '0 0 1.3rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.26em', color: '#9c8f7c' }}>DECISION LOG</p>
-        <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>01</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>Apis, not scrapers</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>Lever, Adzuna and Jooble return structured listings. A layout change can no longer break ingestion.</span></div>
+        <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>01</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>Apis, not scrapers</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>Greenhouse, Lever, Ashby and SmartRecruiters return structured listings, with Adzuna across 18 India shards. A layout change can no longer break ingestion.</span></div>
         <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>02</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>Filter before write</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>The scam filter sits between the cron and the database, so a bad listing never reaches a student.</span></div>
         <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>03</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>Parse, then tailor</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>The resume parser hands the model structured fields, which is what stops it inventing experience.</span></div>
-        <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)', borderBottom: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>04</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>One api, two audiences</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>Seekers and recruiters hit the same API surface through the same installable PWA.</span></div>
+        <div data-dec style={{ display: 'grid', gridTemplateColumns: '2.6rem minmax(0,13rem) minmax(0,1fr)', gap: '0.9rem', alignItems: 'baseline', padding: '0.85rem 0', borderTop: '1px solid rgba(229,141,85,0.14)', borderBottom: '1px solid rgba(229,141,85,0.14)' }}><span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.62rem', letterSpacing: '0.1em', color: '#9c8f7c' }}>04</span><span data-dec-t style={{ fontFamily: '\'Saira Condensed\',sans-serif', fontSize: '1rem', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e58d55' }}>Apply at the source</span><span data-dec-b style={{ fontFamily: 'Spectral,serif', fontSize: '0.95rem', lineHeight: '1.7', color: '#c8bb9f', textWrap: 'pretty' }}>Every card links out to the company’s own careers page. Umbrix never sits between the applicant and the employer.</span></div>
       </section>
 
       <section data-plot style={{ marginTop: 'clamp(2.6rem,5vw,4rem)' }}>
@@ -1196,7 +1196,7 @@ class Page extends React.Component {
           <div style={{ position: 'relative', minWidth: '0', paddingTop: '1.15rem' }}>
             <span data-grow style={{ position: 'absolute', top: '0', left: '0', width: '1px', height: '0.75rem', background: '#e58d55', transformOrigin: 'top' }}></span>
             <p data-step-n style={{ margin: '0 0 0.35rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#e58d55' }}>STEP 01</p>
-            <p data-step-t style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '0.9rem', lineHeight: '1.6', color: '#c8bb9f', textWrap: 'pretty' }}>Provider integrations: Lever, Adzuna, Jooble</p>
+            <p data-step-t style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '0.9rem', lineHeight: '1.6', color: '#c8bb9f', textWrap: 'pretty' }}>Provider integrations: four ATS boards plus Adzuna</p>
           </div>
           <div style={{ position: 'relative', minWidth: '0', paddingTop: '1.15rem' }}>
             <span data-grow style={{ position: 'absolute', top: '0', left: '0', width: '1px', height: '0.75rem', background: '#e58d55', transformOrigin: 'top' }}></span>
@@ -1216,7 +1216,7 @@ class Page extends React.Component {
           <div style={{ position: 'relative', minWidth: '0', paddingTop: '1.15rem' }}>
             <span data-grow style={{ position: 'absolute', top: '0', left: '0', width: '1px', height: '0.75rem', background: '#e58d55', transformOrigin: 'top' }}></span>
             <p data-step-n style={{ margin: '0 0 0.35rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.6rem', letterSpacing: '0.18em', color: '#e58d55' }}>STEP 05</p>
-            <p data-step-t style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '0.9rem', lineHeight: '1.6', color: '#c8bb9f', textWrap: 'pretty' }}>Marketplace and recruiter side on the same API</p>
+            <p data-step-t style={{ margin: '0', fontFamily: 'Spectral,serif', fontSize: '0.9rem', lineHeight: '1.6', color: '#c8bb9f', textWrap: 'pretty' }}>Match scoring out of 99, with its working shown</p>
           </div>
         </div>
       </section>

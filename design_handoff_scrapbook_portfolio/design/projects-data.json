@@ -11,7 +11,7 @@
   "repoNote": "Source private — provider keys and the scam-filter rules ship with it. Walkthrough on request.",
   "accent": "#ef8a4a",
   "accent2": "#ffc99a",
-  "summary": "An installable job platform for Indian freshers: listings are pulled on a schedule from Lever, Adzuna and Jooble, passed through a scam filter before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.",
+  "summary": "An installable job platform for Indian freshers: listings are polled from four public ATS APIs — Greenhouse, Lever, Ashby and SmartRecruiters — plus the Adzuna aggregator across 18 India shards, scam-scored before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.",
   "problem": "Job boards resell each other’s stale listings, and a fresher then sends the same generic resume to two hundred of them. Both halves of the problem are invisible from the outside: you cannot tell which listings are real, or why none of your applications land.",
   "breakthrough": "Ingestion and tailoring are two separate pipelines that meet at the API. Listings arrive from real provider APIs on a cron and are filtered before they touch the database; applications go the other way, through a parser and a tailoring engine, so the platform improves what you send instead of just showing you more.",
   "failed": "Scraping listing pages. Every layout change broke the parser, duplicates piled up across sources, and I was storing junk that a student would have to sift through. Sending raw resume text straight to the model was just as bad — it hallucinated experience that was never there.",
@@ -61,30 +61,32 @@
    "PWA",
    "Node.js",
    "Groq",
+   "Greenhouse API",
    "Lever API",
+   "Ashby API",
+   "SmartRecruiters API",
    "Adzuna API",
-   "Jooble API",
    "Cron",
    "Vercel"
   ],
   "stats": [
    [
-    "3",
-    "provider APIs ingested"
+    "160",
+    "companies polled by API"
    ],
    [
     "0",
     "listings scraped from pages"
    ],
    [
-    "2",
-    "sides: seekers and recruiters"
+    "11,500",
+    "postings the filter was tested on"
    ]
   ],
   "decisions": [
    [
     "APIS, NOT SCRAPERS",
-    "Lever, Adzuna and Jooble return structured listings. A layout change can no longer break ingestion."
+    "Greenhouse, Lever, Ashby and SmartRecruiters return structured listings, with Adzuna across 18 India shards. A layout change can no longer break ingestion."
    ],
    [
     "FILTER BEFORE WRITE",
@@ -95,14 +97,14 @@
     "The resume parser hands the model structured fields, which is what stops it inventing experience."
    ],
    [
-    "ONE API, TWO AUDIENCES",
-    "Seekers and recruiters hit the same API surface through the same installable PWA."
+    "APPLY AT THE SOURCE",
+    "Every card links out to the company's own careers page. Umbrix never sits between the applicant and the employer."
    ]
   ],
   "timeline": [
    [
     "Step 01",
-    "Provider integrations: Lever, Adzuna, Jooble"
+    "Provider integrations: four ATS boards plus Adzuna"
    ],
    [
     "Step 02",
@@ -118,7 +120,7 @@
    ],
    [
     "Step 05",
-    "Marketplace and recruiter side on the same API"
+    "Match scoring out of 99, with its working shown"
    ]
   ],
   "photo": [
@@ -139,7 +141,7 @@
   "repoNote": "Source private — service keys and abuse limits ship with it. Walkthrough on request.",
   "accent": "#6fc4b8",
   "accent2": "#b6f0e6",
-  "summary": "130+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
+  "summary": "140+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
   "problem": "Every “free” file tool is a paywall in costume: two tasks a day, a watermark across the output, an email before download — and your bank statement sitting on someone else’s server.",
   "breakthrough": "There is no server in the loop. PDF, image and OCR work runs on-device through WebAssembly, which turns privacy from a promise into something you can verify in the Network tab.",
   "failed": "Loading every engine up front. The first build shipped megabytes of WASM to someone who only wanted to rotate one page, and a mid-range phone ran out of memory on a large PDF.",
@@ -248,13 +250,13 @@
    ],
    [
     "Step 05",
-    "Scale to 130+ across seven categories"
+    "Scale to 140+ across seven categories"
    ]
   ],
   "photo": [
    "sh-getfreetools",
    "drop screenshot — the tool grid or the compress-PDF page",
-   "130 tools, zero uploads."
+   "140 tools, zero uploads."
   ]
  },
  {

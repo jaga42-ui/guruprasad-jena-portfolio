@@ -11,29 +11,29 @@ export const PROJECTS = [
   "shipped": "2026",
   "repoNote": "Source private — provider keys and the scam-filter rules ship with it. Walkthrough on request.",
   "accent": "#ef8a4a",
-  "summary": "An installable job platform for Indian freshers: listings are pulled on a schedule from Lever, Adzuna and Jooble, passed through a scam filter before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.",
+  "summary": "An installable job platform for Indian freshers: listings are polled from four public ATS APIs — Greenhouse, Lever, Ashby and SmartRecruiters — plus the Adzuna aggregator across 18 India shards, scam-scored before they are stored, and every application is tailored to the role by a resume parser and a Groq-backed tailoring engine.",
   "failed": "Scraping listing pages. Every layout change broke the parser, duplicates piled up across sources, and I was storing junk that a student would have to sift through. Sending raw resume text straight to the model was just as bad — it hallucinated experience that was never there.",
   "changed": "I moved to provider APIs with a scheduled job per source, so listings are structured on arrival and the scam filter runs before the insert rather than after. The tailoring engine now receives parsed, structured resume fields and the job’s own requirements — it rewrites emphasis, it does not invent history.",
   "learned": "The boring layer is where the trust lives. A filter that runs before the write, and a parser that hands the model structure instead of prose, did more for output quality than any prompt I tried.",
   "rebuild": "A queue in front of the ingestion job so one slow provider cannot stall the run, and per-source dedupe keyed on company plus title rather than provider id.",
   "stats": [
    [
-    "3",
-    "provider APIs ingested"
+    "160",
+    "companies polled by API"
    ],
    [
     "0",
     "listings scraped from pages"
    ],
    [
-    "2",
-    "sides: seekers and recruiters"
+    "11,500",
+    "postings the filter was tested on"
    ]
   ],
   "decisions": [
    [
     "APIS, NOT SCRAPERS",
-    "Lever, Adzuna and Jooble return structured listings. A layout change can no longer break ingestion."
+    "Greenhouse, Lever, Ashby and SmartRecruiters return structured listings, with Adzuna across 18 India shards. A layout change can no longer break ingestion."
    ],
    [
     "FILTER BEFORE WRITE",
@@ -44,14 +44,14 @@ export const PROJECTS = [
     "The resume parser hands the model structured fields, which is what stops it inventing experience."
    ],
    [
-    "ONE API, TWO AUDIENCES",
-    "Seekers and recruiters hit the same API surface through the same installable PWA."
+    "APPLY AT THE SOURCE",
+    "Every card links out to the company's own careers page. Umbrix never sits between the applicant and the employer."
    ]
   ],
   "timeline": [
    [
     "Step 01",
-    "Provider integrations: Lever, Adzuna, Jooble"
+    "Provider integrations: four ATS boards plus Adzuna"
    ],
    [
     "Step 02",
@@ -67,7 +67,7 @@ export const PROJECTS = [
    ],
    [
     "Step 05",
-    "Marketplace and recruiter side on the same API"
+    "Match scoring out of 99, with its working shown"
    ]
   ],
   "nodes": [
@@ -75,28 +75,28 @@ export const PROJECTS = [
    "Installable PWA",
    "API layer",
    "Database",
-   "Lever · Adzuna · Jooble",
+   "ATS APIs · Adzuna",
    "Cron job",
    "Scam filter"
   ],
   "subs": [
-   "seekers and recruiters",
+   "fresher · india feed",
    "next.js on vercel",
    "auth · routing · quotas",
    "listings · profiles · applications",
-   "three provider apis",
+   "four boards + one aggregator",
    "one job per source",
    "runs before the insert"
   ],
   "sides": [
    "Resume parser",
-   "Marketplace",
+   "Match scoring",
    "Tailoring engine",
    "Groq"
   ],
   "sideSubs": [
    "cv → structured fields",
-   "listings · applications",
+   "score out of 99",
    "per-role rewrite",
    "llama inference"
   ],
@@ -116,9 +116,11 @@ export const PROJECTS = [
    "PWA",
    "Node.js",
    "Groq",
+   "Greenhouse API",
    "Lever API",
+   "Ashby API",
+   "SmartRecruiters API",
    "Adzuna API",
-   "Jooble API",
    "Cron",
    "Vercel"
   ]
@@ -134,7 +136,7 @@ export const PROJECTS = [
   "shipped": "2026",
   "repoNote": "Source private — service keys and abuse limits ship with it. Walkthrough on request.",
   "accent": "#6fc4b8",
-  "summary": "130+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
+  "summary": "140+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
   "failed": "Loading every engine up front. The first build shipped megabytes of WASM to someone who only wanted to rotate one page, and a mid-range phone ran out of memory on a large PDF.",
   "changed": "Each tool is its own focused page that lazy-loads only the core it needs, heavy work moved off the main thread, and every tool is a single drop zone with one big download button.",
   "learned": "Bundle size is user experience. Local-first isn’t a constraint — it’s the reason there is no upload to intercept and no file-size cap to enforce.",
@@ -190,7 +192,7 @@ export const PROJECTS = [
    ],
    [
     "Step 05",
-    "Scale to 130+ across seven categories"
+    "Scale to 140+ across seven categories"
    ]
   ],
   "nodes": [
