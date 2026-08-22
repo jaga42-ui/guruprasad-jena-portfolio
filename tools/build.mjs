@@ -29,7 +29,7 @@ const PAGES = [
 /* One-line summaries for per-route metadata. The sources carry a <title> but no
    description; these are the §5 character notes from the handoff, verbatim. */
 const DESCRIPTIONS = {
-  Home: 'Full-stack developer. Four products live, repos public — a scrapbook of the work and the person behind it.',
+  Home: 'Full-stack developer. Four products live, two repos open — a scrapbook of the work and the person behind it.',
   About: 'The long-form version: how I got here, what I studied, and what I keep coming back to.',
   Skills: 'The stack I build with and the tools I actually reach for, rated honestly.',
   Projects: 'Four case files — Umbrix, GetFreeToolsAI, Veritas Picks and Sahayam — plotted as blueprint sheets.',
@@ -54,12 +54,19 @@ for (const p of PAGES) {
   /* The screen is a client component (state, refs, timers). page.jsx stays a server
      component so each route keeps its own <title> from the source's <helmet>. */
   const title = (/<title>([\s\S]*?)<\/title>/.exec(src) || [, p.label])[1].trim();
+
+  /* The route's own title and description also have to reach og:/twitter:, or a
+     shared sheet previews as the site's front page. pageMeta lives in app/seo.js
+     because this file rewrites page.jsx on every run. */
+  const route = p.dir === 'app' ? '/' : p.dir.replace(/^app/, '');
   writeFileSync(join(ROOT, p.dir, 'page.jsx'),
-    'import ' + p.component + " from './screen';\n\n" +
-    'export const metadata = {\n' +
-    '  title: ' + JSON.stringify(title) + ',\n' +
-    '  description: ' + JSON.stringify(DESCRIPTIONS[p.label]) + ',\n' +
-    '};\n\n' +
+    'import ' + p.component + " from './screen';\n" +
+    "import { pageMeta } from '@/app/seo';\n\n" +
+    'export const metadata = pageMeta(\n' +
+    '  ' + JSON.stringify(title) + ',\n' +
+    '  ' + JSON.stringify(DESCRIPTIONS[p.label]) + ',\n' +
+    '  ' + JSON.stringify(route) + ',\n' +
+    ');\n\n' +
     'export default function Page() {\n  return <' + p.component + ' />;\n}\n');
 
   hoverOut.push('/* ' + p.label.toLowerCase() + ' */');
