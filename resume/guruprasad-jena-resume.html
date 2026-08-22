@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Fullstack Developer Resume</title>
+<!--
+  Source for public/guruprasad-jena-resume.pdf.
+
+  To export:  open in Chrome → Ctrl+P → Destination "Save as PDF"
+              → Paper A4 → Margins "Default" → UNTICK "Headers and footers"
+              → Save as guruprasad-jena-resume.pdf → drop into public/
+
+  Kept deliberately plain so applicant tracking systems can read it: one
+  column, real text (no images of text), standard section headings, system
+  fonts only. The @page rule below owns the margins — Chrome's own margin
+  setting should stay on "Default".
+-->
+<style>
+  @page { size: A4; margin: 11mm 13mm; }
+
+  :root {
+    --ink:      #14181c;
+    --body:     #2b3138;
+    --muted:    #59636e;
+    --rule:     #c2cad2;
+    --accent:   #8c3d10;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: var(--body);
+    font-family: "Source Sans Pro", Calibri, "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 10.1pt;
+    line-height: 1.325;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* On screen only: show the A4 page as a sheet so what you see is what prints. */
+  @media screen {
+    body { background: #eceff2; padding: 18px 0 24px; }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 11mm 13mm;
+      background: #fff;
+      box-shadow: 0 2px 14px rgba(0,0,0,.18);
+    }
+    .howto {
+      width: 210mm;
+      margin: 0 auto 14px;
+      padding: 10px 14px;
+      border-left: 3px solid #8c3d10;
+      background: #fff6ef;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: #4a3a30;
+    }
+    .howto b { color: #8c3d10; }
+    .howto code {
+      font-family: Consolas, "Courier New", monospace;
+      background: #f1e4d9;
+      padding: 0 3px;
+    }
+  }
+  /* the banner is a note to self, never part of the document */
+  @media print { .howto { display: none !important; } }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------------------------------------------------------- header */
+  h1 {
+    margin: 0;
+    font-size: 19.5pt;
+    line-height: 1.05;
+    letter-spacing: .055em;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .title {
+    margin: 3pt 0 0;
+    font-size: 10.4pt;
+    font-weight: 600;
+    letter-spacing: .012em;
+    color: var(--accent);
+  }
+
+  .contact {
+    margin: 5pt 0 0;
+    font-size: 9.1pt;
+    color: var(--muted);
+  }
+  /* nowrap so a URL never breaks mid-token across two lines */
+  .contact a { border-bottom: .4pt solid var(--rule); white-space: nowrap; }
+
+  .sep { padding: 0 4pt; color: var(--rule); }
+
+  /* --------------------------------------------------------- sections */
+  h2 {
+    margin: 9pt 0 0;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid var(--ink);
+    font-size: 9.6pt;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  h2 + * { margin-top: 5pt; }
+
+  p { margin: 0; }
+
+  /* ----------------------------------------------------------- skills */
+  .skills { margin: 5pt 0 0; }
+  .skills div { margin-top: 2.3pt; }
+  .skills b {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* --------------------------------------------------------- projects */
+  .project { margin-top: 6.4pt; }
+  .project:first-of-type { margin-top: 5pt; }
+
+  .phead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8pt;
+  }
+  .pname {
+    font-size: 10.6pt;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .pname span { font-weight: 400; color: var(--body); }
+  .plinks {
+    flex: 0 0 auto;
+    font-size: 8.9pt;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .plinks a { border-bottom: .4pt solid rgba(140,61,16,.35); }
+
+  .stack {
+    margin-top: 1.2pt;
+    font-size: 8.9pt;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  ul { margin: 3pt 0 0; padding-left: 12pt; }
+  li { margin-top: 1.9pt; }
+  li::marker { color: var(--rule); }
+
+  /* -------------------------------------------------------- education */
+  .edu { margin-top: 3.5pt; }
+  .edu div { margin-top: 2.2pt; }
+  .edu b { color: var(--ink); font-weight: 700; }
+  .edu .when { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<aside class="howto">
+  <b>To export the PDF:</b> <code>Ctrl</code>+<code>P</code> &rarr; Destination <b>Save as PDF</b> &rarr;
+  Paper size <b>A4</b> (not Letter &mdash; on Letter this spills to a second page) &rarr;
+  Margins <b>Default</b> &rarr; <b>untick “Headers and footers”</b> &rarr; Save as
+  <code>guruprasad-jena-resume.pdf</code> and drop it into <code>public/</code>.
+  This orange box does not print.
+</aside>
+
+<main class="page">
+
+  <header>
+    <h1>GURUPRASAD JENA</h1>
+    <p class="title">Full-Stack Developer &mdash; React &middot; Next.js &middot; Node.js &middot; Java &middot; Python</p>
+    <p class="contact">
+      Jagatsinghpur, Odisha, India<span class="sep">&middot;</span>+91&nbsp;93481&nbsp;01859<span class="sep">&middot;</span><a href="mailto:guruprasadjena989@gmail.com">guruprasadjena989@gmail.com</a><span class="sep">&middot;</span><a href="https://linkedin.com/in/guruprasad-jena">linkedin.com/in/guruprasad-jena</a><span class="sep">&middot;</span><a href="https://github.com/jaga42-ui">github.com/jaga42-ui</a>
+    </p>
+  </header>
+
+  <h2>Professional Summary</h2>
+  <p>Full-stack developer (MCA, 2026) who has designed, built and shipped four live production web applications end to end, on my own. Strong in React, Next.js, Node.js and MongoDB, comfortable in Java and Python. Seeking a full-stack or frontend developer role on an early-stage product team. Available immediately, remote or hybrid.</p>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <div><b>Languages:</b> JavaScript (ES6+), TypeScript, Java, Python, SQL, HTML5, CSS3</div>
+    <div><b>Frontend:</b> React.js, Next.js (App Router), Tailwind CSS, Framer Motion, responsive design, PWA, accessibility</div>
+    <div><b>Backend:</b> Node.js, Express.js, REST APIs, JWT auth, Socket.IO, WebSockets, cron jobs, rate limiting</div>
+    <div><b>Databases &amp; AI:</b> MongoDB (Atlas), Mongoose, Firestore, Redis (Upstash), schema design, Google Gemini API, Groq, prompt engineering</div>
+    <div><b>Tools &amp; DevOps:</b> Git, GitHub Actions, Vercel, Render, Postman, Figma, Jira, CI/CD, Agile</div>
+  </div>
+
+  <h2>Projects</h2>
+
+  <section class="project">
+    <div class="phead">
+      <div class="pname">Umbrix <span>&mdash; Fresher Job Aggregation Platform</span></div>
+      <div class="plinks"><a href="https://umbrix.in/">umbrix.in</a></div>
+    </div>
+    <div class="stack">Next.js (App Router), TypeScript, MongoDB Atlas, Upstash Redis, Firebase Auth, Groq, Gemini, Vercel Cron</div>
+    <ul>
+      <li>Launched a job platform aggregating 20,000+ verified fresher openings from 160+ company career boards &mdash; Greenhouse, Lever, Ashby, SmartRecruiters and the Adzuna aggregator &mdash; on a scheduled cron pipeline with rate limiting and automatic expiry of stale listings.</li>
+      <li>Screened every posting through a scam filter that runs before the database insert, tested across 11,500 postings with zero legitimate jobs blocked.</li>
+      <li>Developed a 0&ndash;99 job-match scoring engine that explains every score, plus AI r&eacute;sum&eacute; parsing and ATS-friendly r&eacute;sum&eacute; tailoring on the Groq and Gemini APIs with automatic model fallback.</li>
+      <li>Grew organic reach with 250+ programmatic SEO landing pages, JSON-LD structured data, Redis-backed rate limiting and offline PWA support.</li>
+    </ul>
+  </section>
+
+  <section class="project">
+    <div class="phead">
+      <div class="pname">GetFreeToolsAI <span>&mdash; Browser-Based Tool Platform</span></div>
+      <div class="plinks"><a href="https://getfreetoolsai.com/">getfreetoolsai.com</a></div>
+    </div>
+    <div class="stack">Next.js, React, Tailwind CSS, WebAssembly, pdf-lib, PDF.js, Vercel</div>
+    <ul>
+      <li>Shipped 140+ free browser-based tools (PDF, image, audio, developer and calculator utilities) running fully client-side with WebAssembly, so user files never leave their device: no signup, no watermark, no file-size cap.</li>
+      <li>Kept first page load under two seconds with lazy-loaded per-tool modules; Google indexed the site within 72 hours via route-level metadata, dynamic Open Graph images and a generated sitemap.</li>
+    </ul>
+  </section>
+
+  <section class="project">
+    <div class="phead">
+      <div class="pname">Veritas Picks <span>&mdash; Editorial Discovery Platform</span></div>
+      <div class="plinks"><a href="https://veritas-picks.vercel.app/">veritas-picks.vercel.app</a><span class="sep">&middot;</span><a href="https://github.com/jaga42-ui/veritas-picks">source</a></div>
+    </div>
+    <div class="stack">Next.js (App Router), TypeScript, MDX, static export, Vercel</div>
+    <ul>
+      <li>Built a curated discovery platform of editorial buying guides across 18 lifestyle categories, authored in MDX and served as fully static pages with zero client-side data fetches.</li>
+      <li>Derived every page at build time &mdash; table of contents from headings, reading time, pin metadata with generated fallbacks &mdash; behind typed MDX frontmatter that the card, comparison table and FAQ components all read as one contract.</li>
+    </ul>
+  </section>
+
+  <section class="project">
+    <div class="phead">
+      <div class="pname">Sahayam <span>&mdash; Real-Time Humanitarian Aid Platform</span></div>
+      <div class="plinks"><a href="https://sahayam-beta.vercel.app/">sahayam-beta.vercel.app</a><span class="sep">&middot;</span><a href="https://github.com/jaga42-ui/Sahayam">source</a></div>
+    </div>
+    <div class="stack">React, Node.js, Express, MongoDB, Socket.IO, Firebase, Google Gemini API, JWT</div>
+    <ul>
+      <li>Built a real-time MERN platform matching blood donors to emergency requests in under a second using Socket.IO rooms keyed on blood group and location, with Firebase push for offline users and role-based access for four user types.</li>
+      <li>Classified incoming requests with the Google Gemini API and secured the Express API with JWT authentication, rate limiting, Helmet headers and server-side validation.</li>
+    </ul>
+  </section>
+
+  <h2>Education</h2>
+  <div class="edu">
+    <div><b>Master of Computer Applications (MCA)</b> &mdash; Fakir Mohan University, Balasore, Odisha <span class="when">&middot; 2024 &ndash; 2026</span></div>
+    <div><b>B.Sc. in Chemistry</b> &mdash; Balikuda Degree College, Jagatsinghpur, Odisha <span class="when">&middot; 2021 &ndash; 2024</span></div>
+  </div>
+
+</main>
+</body>
+</html>
