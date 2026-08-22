@@ -81,6 +81,14 @@
       [data-r="page"] [style*="rotate("] { transform: none !important; }
       [data-motion="tape"] { display: none !important; }
     }
+    /* iOS Safari zooms the whole page in when a focused input under 16px is
+       tapped, and it never zooms back out. Every touch device does it, not just
+       narrow ones — an iPad is 768px wide — so this keys on the pointer rather
+       than the width. The arrow rides with the caret so the prompt line stays
+       one size. */
+    @media (pointer: coarse) {
+      [data-r="termline"], [aria-label="Terminal input"] { font-size: 1rem !important; }
+    }
     @media (max-width: 1024px) {
       [data-r="pipe"] { flex-wrap: wrap !important; justify-content: center; row-gap: 1.4rem; }
       [data-r="step"] { flex: 0 0 calc(33.333% - 0.9rem) !important; }

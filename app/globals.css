@@ -108,6 +108,9 @@ img, svg, video { max-width: 100%; }
   [data-r="page"] [style*="rotate("] { transform: none !important; }
   [data-motion="tape"] { display: none !important; }
 }
+@media (pointer: coarse) {
+  [data-r="termline"], [aria-label="Terminal input"] { font-size: 1rem !important; }
+}
 
 /* ---- from Skills ---- */
 @keyframes radarpoly {
