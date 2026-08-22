@@ -60,6 +60,14 @@
       [data-r="page"] [style*="rotate("] { transform: none !important; }
       [data-motion="tape"] { display: none !important; }
     }
+    /* iOS Safari zooms the whole page in when a focused input under 16px is
+       tapped, and it never zooms back out. Every touch device does it, not just
+       narrow ones — an iPad is 768px wide — so this keys on the pointer rather
+       than the width. The arrow rides with the caret so the prompt line stays
+       one size. */
+    @media (pointer: coarse) {
+      [data-r="termline"], [aria-label="Terminal input"] { font-size: 1rem !important; }
+    }
   </style>
   <script src="motion.js"></script>
 </helmet>
@@ -337,7 +345,7 @@
               <div onClick="{{ focusTerm }}" style="padding:0.9rem 1.1rem 1.1rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;line-height:1.75;min-height:12.5rem;max-height:16rem;overflow-y:auto;cursor:text">
                 <p style="margin:0;color:#7f8f6e">guru-os 1.0.1 — type <span style="color:#e8b64a">help</span> to see what I left lying around.</p>
                 {{ termOutput }}
-                <p style="margin:0.35rem 0 0;display:flex;align-items:center;gap:0.4rem;color:#7daa76"><span style="color:#6fa8ea">➜</span><input type="text" ref="{{ termInput }}" onKeyDown="{{ onTermKey }}" onChange="{{ onTermChange }}" value="{{ termValue }}" spellcheck="false" autocomplete="off" aria-label="Terminal input" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#ded4bd;caret-color:#7daa76" /></p>
+                <p data-r="termline" style="margin:0.35rem 0 0;display:flex;align-items:center;gap:0.4rem;color:#7daa76"><span style="color:#6fa8ea">➜</span><input type="text" ref="{{ termInput }}" onKeyDown="{{ onTermKey }}" onChange="{{ onTermChange }}" value="{{ termValue }}" spellcheck="false" autocomplete="off" aria-label="Terminal input" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#ded4bd;caret-color:#7daa76" /></p>
               </div>
             </div>
             <span aria-hidden="true" style="position:absolute;bottom:-1.4rem;left:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:#a2977c">↑ it actually works, try “help”</span>
