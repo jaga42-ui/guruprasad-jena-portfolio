@@ -150,6 +150,23 @@ const ONESHOT = {
   },
 };
 
+/* Elements whose one-shot came due while the tab was backgrounded, waiting for someone
+   to actually be there to see it. See the note in the observer below. */
+let deferred = [];
+
+function fire(el) {
+  const fn = ONESHOT[el.dataset.motion];
+  if (fn) { try { fn(el); } catch (err) { /* a recipe must never block the page */ } }
+  else el.classList.add('m-in');            // the no-scroll-timeline fallback
+}
+
+function flushDeferred() {
+  if (document.hidden || !deferred.length) return;
+  const q = deferred;
+  deferred = [];
+  q.forEach(fire);
+}
+
 /* ── tagging ──────────────────────────────────────────────────────────────────────── */
 
 /* The pages do not spell out every motion hook, so a few are inferred. This runs once per
@@ -525,9 +542,21 @@ export function initScrapMotion() {
       const el = e.target;
       io.unobserve(el);
       if (reduce) continue;
-      const fn = ONESHOT[el.dataset.motion];
-      if (fn) { try { fn(el); } catch (err) { /* a recipe must never block the page */ } }
-      else el.classList.add('m-in');            // the no-scroll-timeline fallback
+      /* Every one-shot below is a time-based animation, and the document timeline does
+         not advance in a backgrounded tab — but IntersectionObserver still fires there.
+         Start one then and it parks on whatever keyframe it had reached: the ink wipe
+         freezes mid-stroke, so "Deploying ideas…" renders as "Deplo". Half the
+         handwriting on the sheet is an ink element, so this is not a corner of the page,
+         it is the page.
+
+         Deferred rather than skipped, which is where this differs from pageIn(). A
+         stalled wipe does resume when the tab is focused, so skipping outright would
+         trade "plays late" for "never plays" — and the wipes arriving together as the
+         reader switches to the tab is a better first look than text that is simply
+         already there. count() is the exception and still skips: it rewrites textContent,
+         so a stall leaves a real figure reading zero. */
+      if (document.hidden) { deferred.push(el); continue; }
+      fire(el);
     }
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.02 });
 
@@ -552,6 +581,10 @@ export function initScrapMotion() {
     };
     document.addEventListener('visibilitychange', onShow);
   }
+
+  /* Stays for the life of the page: a reader can background the tab at any point, not
+     only during load, and anything that came due meanwhile is owed its one shot. */
+  document.addEventListener('visibilitychange', flushDeferred);
 
   scan();
   pageIn();
