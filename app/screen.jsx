@@ -207,7 +207,6 @@ class Page extends React.Component {
     <span aria-hidden="true" style={{ position: 'absolute', top: '87.11%', left: '44.75%', width: '10rem', fontFamily: 'Caveat,cursive', fontSize: '0.98rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#a89070', textShadow: '0 1px 1px rgba(0,0,0,0.7)', transform: 'rotate(5deg)' }}>three hours for one margin</span>
     <span aria-hidden="true" style={{ position: 'absolute', top: '64.05%', left: '34.52%', width: '10rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.66rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#9c8f7c', transform: 'rotate(-2deg)' }}>i talk to the compiler now — it doesn't answer</span>
     <span aria-hidden="true" style={{ position: 'absolute', top: '73.9%', left: '26.09%', width: '10rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.66rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#9c8f7c', transform: 'rotate(3deg)' }}>still faster than my last portfolio</span>
-    <span aria-hidden="true" style={{ position: 'absolute', top: '9.2%', left: '66.5%', width: '9rem', fontFamily: 'Caveat,cursive', fontSize: '0.98rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#7e9c8a', textShadow: '0 1px 1px rgba(0,0,0,0.7)', transform: 'rotate(-4deg)' }}>i almost had it working yesterday</span>
     <span aria-hidden="true" style={{ position: 'absolute', top: '55.53%', left: '21.24%', width: '10rem', fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.66rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#9c8f7c', transform: 'rotate(6deg)' }}>yesterday me was overconfident</span>
     <span aria-hidden="true" style={{ position: 'absolute', top: '47.2%', left: '60.5%', width: '10rem', fontFamily: 'Caveat,cursive', fontSize: '0.98rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#9a90b4', textShadow: '0 1px 1px rgba(0,0,0,0.7)', transform: 'rotate(-1deg)' }}>deleted 200 lines felt amazing</span>
     <span aria-hidden="true" style={{ position: 'absolute', top: '62.88%', left: '12.93%', width: '10rem', fontFamily: 'Caveat,cursive', fontSize: '0.98rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#a89070', textShadow: '0 1px 1px rgba(0,0,0,0.7)', transform: 'rotate(2deg)' }}>added them back felt worse</span>
@@ -300,10 +299,13 @@ class Page extends React.Component {
               <p style={{ margin: '0.4rem 0 0' }}>I guess you'll have to read it <span style={{ color: '#e58d55' }}>the way it was written</span>.</p>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '1.5rem', transform: 'rotate(-8deg)', width: 'fit-content' }} data-motion="tag">
-            <span style={{ fontFamily: 'Caveat,cursive', fontSize: '1.15rem', color: '#7daa76' }}>Deploying ideas…</span>
-            <span aria-hidden="true" style={{ position: 'relative', width: '7rem', height: '0.55rem', borderRadius: '2px', background: 'repeating-linear-gradient(90deg, rgba(125,170,118,0.18) 0 9px, transparent 9px 12px)' }}><i style={{ position: 'absolute', left: '0', top: '0', bottom: '0', width: `${V.deployFill}`, borderRadius: '2px', background: 'repeating-linear-gradient(90deg,#7daa76 0 9px, transparent 9px 12px)', transition: 'width .45s cubic-bezier(.3,.9,.4,1)' }}></i></span>
-            <span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.7rem', color: '#7daa76' }}>{V.deployLabel}</span>
+          <div style={{ marginTop: '1.5rem', width: 'fit-content' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', transform: 'rotate(-8deg)', width: 'fit-content' }} data-motion="tag">
+              <span style={{ fontFamily: 'Caveat,cursive', fontSize: '1.15rem', color: '#7daa76' }}>Deploying ideas…</span>
+              <span aria-hidden="true" style={{ position: 'relative', width: '7rem', height: '0.55rem', borderRadius: '2px', background: 'repeating-linear-gradient(90deg, rgba(125,170,118,0.18) 0 9px, transparent 9px 12px)' }}><i style={{ position: 'absolute', left: '0', top: '0', bottom: '0', width: `${V.deployFill}`, borderRadius: '2px', background: 'repeating-linear-gradient(90deg,#7daa76 0 9px, transparent 9px 12px)', transition: 'width .45s cubic-bezier(.3,.9,.4,1)' }}></i></span>
+              <span style={{ fontFamily: '\'JetBrains Mono\',monospace', fontSize: '0.7rem', color: '#7daa76' }}>{V.deployLabel}</span>
+            </div>
+            <span aria-hidden="true" style={{ display: 'block', width: '11rem', margin: '2.1rem 0 0 2.4rem', fontFamily: 'Caveat,cursive', fontSize: '0.98rem', lineHeight: '1.25', letterSpacing: '0.01em', color: '#7e9c8a', textShadow: '0 1px 1px rgba(0,0,0,0.7)', transform: 'rotate(-4deg)' }}>i almost had it working yesterday</span>
           </div>
 
 

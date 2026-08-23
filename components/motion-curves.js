@@ -19,56 +19,30 @@ export const CURVE = {
   turn: 'cubic-bezier(.55,0,.85,.4)',
 };
 
-/* ------------------------------------------------------------------ springs */
+/* ------------------------------------------------------------------ springs
 
-/* A damped spring, solved and sampled into keyframes.
+   There used to be a damped-spring solver here — the ODE integrated up front and sampled
+   into 49 keyframes, so that paper could overshoot and settle asymmetrically in a way no
+   cubic-bezier expresses. The physics was right and the reasoning behind it still holds;
+   what was wrong was where the result ran.
 
-   A cubic-bezier cannot express an overshoot followed by an asymmetric settle, and that is
-   precisely the part that makes paper read as paper rather than as a card sliding to a
-   stop. So the ODE is solved up front and baked into the values; the animation then runs
-   on `linear`, because the shape is already in the numbers.
+   Keyframes built in JavaScript are a main-thread animation. The arrivals are now CSS
+   scroll-driven animations instead (app/motion.css), which the compositor runs off-thread
+   and scrubs against scroll position rather than firing on a timer. That trade is only
+   available to animations declared in a stylesheet, so the solved curves had to become
+   authored percentages to make the trip.
 
-   Returns { track, duration } where track is [{ offset, v }] with v travelling 0 → 1 and
-   crossing 1 on the overshoot. */
-export function springTrack({ stiffness, damping, mass = 1, steps = 48, decayTo = 0.004 } = {}) {
-  const w0 = Math.sqrt(stiffness / mass);
-  const zeta = damping / (2 * Math.sqrt(stiffness * mass));
-  const settle = -Math.log(decayTo) / (zeta * w0);
-  const wd = zeta < 1 ? w0 * Math.sqrt(1 - zeta * zeta) : 0;
+   They did make the trip. The paper spring's 13% overshoot is the 18%/100% pair in
+   @keyframes m-paper; the tape press — the beat that dips to .986 before settling, which
+   is the difference between a thumb pushing a strip down and a sticker appearing — is the
+   9%/15%/22% run in @keyframes m-tape. Same shapes, no solver, no main thread.
 
-  const track = [];
-  for (let i = 0; i <= steps; i++) {
-    const t = (i / steps) * settle;
-    const decay = Math.exp(-zeta * w0 * t);
-    const v = zeta < 1
-      ? 1 - decay * (Math.cos(wd * t) + (zeta * w0 / wd) * Math.sin(wd * t))
-      : 1 - decay * (1 + w0 * t);
-    track.push({ offset: i / steps, v });
-  }
-  track[track.length - 1].v = 1;
-  return { track, duration: Math.round(settle * 1000) };
-}
+   pluckTrack stays, because the thread it moves is a single element responding to a single
+   pointer event: there is no scroll position to scrub it against, and 40 keyframes of
+   translateX on one node is a composited animation either way.                          */
 
-/* Stiffness and damping are the honest units, but they are not the units anyone tunes in.
-   `overshoot` is how far past the target the first swing goes (0.13 = 13%) and `settle` is
-   how long until it is visually at rest — which is what you actually art-direct. This
-   solves back to the physics.
-
-   Sanity check on the conversion: the handoff specifies stiffness ≈170 / damping ≈22 for
-   the paper scraps, while the keyframes it ships overshoot a 30px rise by 4px. Feeding
-   that 13% back through here returns stiffness 169 — the documented stiffness is right and
-   only the damping figure was an approximation (14.2, not 22). At damping 22 the overshoot
-   is 0.7%, i.e. 0.2px, which is no settle at all. */
-export function spring({ overshoot, settle, steps = 48 }) {
-  const L = -Math.log(overshoot);
-  const zeta = L / Math.sqrt(Math.PI * Math.PI + L * L);
-  const decayTo = 0.004;
-  const w0 = -Math.log(decayTo) / (zeta * (settle / 1000));
-  return springTrack({ stiffness: w0 * w0, damping: 2 * zeta * w0, steps, decayTo });
-}
-
-/* The same solver, but starting at rest and knocked sideways — a plucked string rather than
-   a released one. Displacement starts at 0, swings out, and rings down to nothing. */
+/* A damped spring starting at rest and knocked sideways — a plucked string rather than a
+   released one. Displacement starts at 0, swings out, and rings down to nothing. */
 export function pluckTrack({ stiffness = 520, damping = 11, mass = 1, steps = 40 } = {}) {
   const w0 = Math.sqrt(stiffness / mass);
   const zeta = damping / (2 * Math.sqrt(stiffness * mass));
