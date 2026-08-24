@@ -273,6 +273,61 @@ function arm(el, i) {
   }
 }
 
+/* ── the cascade, restored ────────────────────────────────────────────────────────────
+
+   A view() timeline is a function of the element's own position, so two scraps at the
+   same height share a progress value at every scroll offset and arrive in exact lockstep.
+   A row of five cards snapping in as a single object is more mechanical than the
+   metronome the original engine was rewritten to escape — its argument was that a hand
+   puts down a group of things, pauses, then reaches for the next group. Moving the
+   arrivals onto the compositor quietly threw that away, and this puts it back: each item
+   in a row starts its arrival a little later than the one to its left.
+
+   Rows separate themselves — different heights already mean different progress — so only
+   the across-a-row case needs anything added.
+
+   Measured with offsetTop rather than getBoundingClientRect, and that is the whole trick.
+   A rect is the *animated* position: at load every element below the fold is sitting up
+   to 60px from where it belongs, which is the same order as the 44px gap used to decide
+   what counts as one row. Clustering on rects would group elements by where the animation
+   currently has them. offsetTop is layout, untouched by transforms, so it reports where
+   the element actually lives. */
+const ROW_GAP = 44;      // px of vertical clearance that starts a new row
+const STAG_STEP = 3;     // % of its own traversal each item waits behind the last
+const STAG_MAX = 12;     // beyond four across, further delay stops reading as a cascade
+
+function layoutTop(el) {
+  let y = 0;
+  for (let e = el; e; e = e.offsetParent) y += e.offsetTop;
+  return y;
+}
+
+function layoutLeft(el) {
+  let x = 0;
+  for (let e = el; e; e = e.offsetParent) x += e.offsetLeft;
+  return x;
+}
+
+function cascade(root) {
+  const els = [];
+  root.querySelectorAll('[data-m-scrub],[data-m-fallback]').forEach((el) => {
+    if (!el.__mStag) els.push(el);
+  });
+  if (!els.length) return;
+
+  const boxes = els.map((el) => ({ el, top: layoutTop(el), left: layoutLeft(el) }));
+  boxes.sort((a, b) => (a.top - b.top) || (a.left - b.left));
+
+  let rowTop = -Infinity, i = 0;
+  for (const b of boxes) {
+    b.el.__mStag = 1;
+    if (b.top > rowTop + ROW_GAP) { i = 0; rowTop = b.top; }
+    else i++;
+    const stag = Math.min(i * STAG_STEP, STAG_MAX);
+    if (stag) b.el.style.setProperty('--m-stag', stag);
+  }
+}
+
 /* The corner curl. The lift itself is hover.css's job — see the note in app/motion.css. */
 function liftSetup(root) {
   root.querySelectorAll('[data-motion="scrap"]').forEach((el) => {
@@ -652,6 +707,7 @@ export function scan() {
   liftSetup(root);
   parkDeco(root);
   document.querySelectorAll('[data-motion]').forEach(arm);
+  cascade(root);
   turnSetup();
   lampSetup();
   pointerDepth();
