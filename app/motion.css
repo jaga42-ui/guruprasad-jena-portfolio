@@ -97,18 +97,43 @@
    page depth. Splitting these into two animations is not possible anyway — two
    animations targeting `translate` do not blend, the later one simply wins. */
 
+/* Two things carry this: the easing per segment, and the beat at 13%.
+
+   Segment easing, because the animation as a whole runs `linear` — it has to, the
+   timeline is scroll position and the drift must track it one-to-one. But `linear`
+   applied to the arrival means the sheet travels at constant speed and then stops dead,
+   which is the single most mechanical motion available. animation-timing-function inside
+   a keyframe eases only the segment that begins there, so the fall can decelerate while
+   the drift after it stays honest to the scrubber.
+
+   And the beat at 13% is the overshoot. The engine used to solve a damped spring and
+   sample it into 49 keyframes; the note in motion-curves.js claims the 13% overshoot
+   survived the move into CSS, and for the tape press, the chip pop, the stamp strike and
+   the tag swing it did. For paper it did not — m-paper was a plain rise with nothing past
+   rest, which is the one material on the page where the overshoot was the whole point.
+   5px past, rotation crossing a half degree beyond zero, scale a whisper over 1: that is
+   air escaping from under a sheet as it lands. */
 @keyframes m-paper {
   0% {
     opacity: 0;
     translate: 0 calc(var(--m-rise) + var(--m-d) * 34px);
     rotate: var(--m-spin);
     scale: 0.962;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
-  18% {
+  13% {
+    opacity: 1;
+    translate: 0 calc(var(--m-d) * 22px - 5px);
+    rotate: -0.5deg;
+    scale: 1.006;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.25, 1);
+  }
+  21% {
     opacity: 1;
     translate: 0 calc(var(--m-d) * 22px);
     rotate: 0deg;
     scale: 1;
+    animation-timing-function: linear;
   }
   100% {
     opacity: 1;
@@ -121,16 +146,20 @@
 /* Chips are small and light: they pop rather than rise, and they barely parallax —
    a tool chip floating away from its own card would read as a bug. */
 @keyframes m-chip {
-  0%   { opacity: 0; translate: 0 10px; scale: 0.82; }
-  20%  { opacity: 1; translate: 0 0;    scale: 1.04; }
-  34%  { opacity: 1; translate: 0 0;    scale: 1; }
+  0%   { opacity: 0; translate: 0 10px; scale: 0.82; animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  20%  { opacity: 1; translate: 0 0;    scale: 1.04; animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); }
+  34%  { opacity: 1; translate: 0 0;    scale: 1;    animation-timing-function: linear; }
   100% { opacity: 1; translate: 0 calc(var(--m-d) * -10px); scale: 1; }
 }
 
 /* A pinned tag swings from the pin, so it travels sideways and keeps a little sway. */
+/* A pinned tag swings, and a swing is a pendulum — it crosses the bottom of its arc
+   before it comes back. Rotating straight from 5deg to 0 is a tag being placed; crossing
+   to -1.2deg at 14% and easing back is a tag being let go of. */
 @keyframes m-tag {
-  0%   { opacity: 0; translate: -14px 6px; rotate: 5deg; scale: 0.9; }
-  20%  { opacity: 1; translate: 0 0;       rotate: 0deg; scale: 1; }
+  0%   { opacity: 0; translate: -14px 6px; rotate: 5deg; scale: 0.9; animation-timing-function: cubic-bezier(0.25, 0.9, 0.3, 1); }
+  14%  { opacity: 1; translate: 1px -1px;  rotate: -1.2deg; scale: 1.01; animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); }
+  24%  { opacity: 1; translate: 0 0;       rotate: 0deg; scale: 1; animation-timing-function: linear; }
   100% { opacity: 1; translate: calc(var(--m-d) * 5px) calc(var(--m-d) * -16px); rotate: -0.6deg; scale: 1; }
 }
 
@@ -138,44 +167,44 @@
    The dip below 1 at 15% is the press — without it the strip only grows into place,
    which reads as a sticker appearing rather than a hand pushing something down. */
 @keyframes m-tape {
-  0%   { opacity: 0; scale: 0.4;   rotate: -6deg; }
-  9%   { opacity: 1; scale: 1.07;  rotate: 1.2deg; }
-  15%  { opacity: 1; scale: 0.986; rotate: 0deg; }
-  22%  { opacity: 1; scale: 1;     rotate: 0deg; }
-  100% { opacity: 1; scale: 1;     rotate: 0deg; translate: 0 calc(var(--m-d) * -12px); }
+  0%   { opacity: 0; scale: 0.4;   rotate: -6deg;  animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  9%   { opacity: 1; scale: 1.07;  rotate: 1.2deg; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  15%  { opacity: 1; scale: 0.986; rotate: 0deg;   animation-timing-function: cubic-bezier(0.3, 0, 0.35, 1); }
+  22%  { opacity: 1; scale: 1;     rotate: 0deg;   animation-timing-function: linear; }
+  100% { opacity: 1; scale: 1;     rotate: 0deg;   translate: 0 calc(var(--m-d) * -12px); }
 }
 
 /* Type has no mass, so there is nothing to overshoot — it only arrives and drifts. */
 @keyframes m-line {
-  0%   { opacity: 0; translate: 0 16px; }
-  20%  { opacity: 1; translate: 0 0; }
+  0%   { opacity: 0; translate: 0 16px; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  20%  { opacity: 1; translate: 0 0; animation-timing-function: linear; }
   100% { opacity: 1; translate: 0 calc(var(--m-d) * -22px); }
 }
 
 @keyframes m-head {
-  0%   { opacity: 0; translate: 0 26px; scale: 0.985; }
-  24%  { opacity: 1; translate: 0 0;    scale: 1; }
+  0%   { opacity: 0; translate: 0 26px; scale: 0.985; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  24%  { opacity: 1; translate: 0 0;    scale: 1; animation-timing-function: linear; }
   100% { opacity: 1; translate: 0 calc(var(--m-d) * -38px); scale: 1; }
 }
 
 @keyframes m-kicker {
-  0%   { opacity: 0; translate: -12px 0; }
-  22%  { opacity: 1; translate: 0 0; }
+  0%   { opacity: 0; translate: -12px 0; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  22%  { opacity: 1; translate: 0 0; animation-timing-function: linear; }
   100% { opacity: 1; translate: 0 calc(var(--m-d) * -18px); }
 }
 
 /* A rubber stamp is struck, not placed: it lands oversized and hard. */
 @keyframes m-stamp {
-  0%   { opacity: 0; scale: 1.65; rotate: -14deg; }
-  10%  { opacity: 0.92; scale: 0.94; rotate: 1deg; }
-  17%  { opacity: 1; scale: 1.02; rotate: 0deg; }
-  26%  { opacity: 1; scale: 1; rotate: 0deg; }
+  0%   { opacity: 0; scale: 1.65; rotate: -14deg; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.2); }
+  10%  { opacity: 0.92; scale: 0.94; rotate: 1deg; animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1); }
+  17%  { opacity: 1; scale: 1.02; rotate: 0deg; animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); }
+  26%  { opacity: 1; scale: 1; rotate: 0deg; animation-timing-function: linear; }
   100% { opacity: 1; scale: 1; rotate: 0deg; translate: 0 calc(var(--m-d) * -14px); }
 }
 
 @keyframes m-mat {
-  0%   { opacity: 0; scale: 0.984; }
-  22%  { opacity: 1; scale: 1; }
+  0%   { opacity: 0; scale: 0.984; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  22%  { opacity: 1; scale: 1; animation-timing-function: linear; }
   100% { opacity: 1; scale: 1; translate: 0 calc(var(--m-d) * -18px); }
 }
 
@@ -189,8 +218,8 @@
    14%, because a tall block is still entering the viewport long after its top edge has
    arrived and there is nothing to gain by making the reader wait for it. */
 @keyframes m-plot {
-  0%   { opacity: 0; translate: 0 22px; scale: 0.992; }
-  14%  { opacity: 1; translate: 0 0;    scale: 1; }
+  0%   { opacity: 0; translate: 0 22px; scale: 0.992; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  14%  { opacity: 1; translate: 0 0;    scale: 1; animation-timing-function: linear; }
   100% { opacity: 1; translate: 0 calc(var(--m-d) * -26px); scale: 1; }
 }
 
@@ -207,10 +236,24 @@
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
+    /* --m-stag is the one thing a view() timeline cannot supply on its own, and losing it
+       was the real cost of moving this layer onto the compositor.
+
+       A view timeline is a function of an element's own position, so two scraps sitting
+       at the same height have the same progress at every scroll offset and therefore
+       arrive in exact lockstep. A row of five cards snapping into place as one object is
+       more mechanical than the metronome cascade the original engine was written to get
+       away from — its whole argument was that a hand puts down a group of things, pauses,
+       and reaches for the next group.
+
+       Pushing each item's range-start a little later restores that. The offset is in
+       percent of the element's own traversal, assigned left to right across a row by
+       scrap-motion.js, so a row deals itself out instead of appearing. Rows are already
+       separated by their own geometry and need nothing added. */
     [data-m-scrub] {
       animation: var(--m-anim) linear both;
       animation-timeline: view();
-      animation-range: cover 0% cover 100%;
+      animation-range: cover calc(var(--m-stag, 0) * 1%) cover 100%;
     }
     [data-m-scrub="scrap"] { --m-anim: m-paper; }
     [data-m-scrub="mat"]    { --m-anim: m-mat; }
