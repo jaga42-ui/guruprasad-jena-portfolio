@@ -291,11 +291,147 @@ function liftSetup(root) {
    one attribute, and app/motion.css does the rest with animation-play-state. */
 function parkDeco(root) {
   root.querySelectorAll('[data-motion-deco] > *').forEach((el) => {
-    if (el.__mPark) return;
-    el.__mPark = 1;
-    el.setAttribute('data-m-idle', '');
-    idleIo.observe(el);
+    if (!el.__mPark) {
+      el.__mPark = 1;
+      /* A note carries a sentence; a sparkle carries one glyph. Only the first kind can
+         collide with anything in a way a reader would notice. */
+      if (!el.children.length && (el.textContent || '').trim().length >= 8) el.__mNote = 1;
+      el.setAttribute('data-m-idle', '');
+      idleIo.observe(el);
+    }
+    /* Deliberately outside the latch: queue any note that is on screen and still
+       unjudged, on every scan rather than only the first. The observer is the general
+       mechanism, but its callbacks run as part of the rendering steps, so a tab that is
+       not painting yet delivers none at all — and the notes visible at load are the
+       conspicuous ones. scan() runs at 0, 400 and 1400ms, which covers the load case
+       without an observer and without a scroll listener. The rect read is guarded
+       behind __mNote, so it costs six or nine elements, not fifty. */
+    if (el.__mNote && !el.__mChecked) {
+      const r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) queueNote(el);
+    }
   });
+}
+
+/* ── decluttering the marginalia ──────────────────────────────────────────────────────
+
+   The scattered handwritten notes — "three hours for one margin", "renamed the variable
+   for the ninth time" — are absolutely positioned at percentages of the full page height
+   inside the deco layer. That places them against a page whose content reflows with
+   viewport width, so whether any given note lands in empty space or on top of a card is
+   decided by arithmetic nobody performed. At 1536px, "renamed the variable for the ninth
+   time" sits entirely underneath "Future HR," and "three hours for one margin" entirely
+   underneath a "Vercel" chip.
+
+   Fixing the two coordinates that happen to collide at the width I measured would leave
+   every other width exactly as fragile, so this checks at runtime instead: when a note
+   first scrolls into view, hit-test it, and if something legible is sitting on top of it,
+   take it out.
+
+   Hidden rather than nudged, deliberately. A nudge has to land somewhere, and somewhere
+   is another coordinate nobody chose — it trades a collision you can see for one you have
+   not measured yet. These are marginalia scattered ten to a page; one absent at one
+   viewport width is imperceptible, while one shoved into a new position is a note that
+   looks misplaced. Losing the note is the smaller loss.
+
+   Hit-testing rather than comparing rectangles, because the notes are rotated and the
+   cards are rotated, and an axis-aligned box around rotated text overlaps things the
+   glyphs never touch. Rect comparison reported three collisions on Home that were not
+   there.
+
+   pointer-events has to be forced on for the probe: the deco layers set it to none, so
+   elementFromPoint looks straight through them and would never see one note covering
+   another. */
+let noteQueue = [], noteScheduled = 0;
+
+function isLegible(el) {
+  return el && !el.children.length && (el.textContent || '').trim().length >= 3;
+}
+
+function declutter() {
+  noteScheduled = 0;
+  const batch = noteQueue.filter((el) => !el.__mChecked);
+  noteQueue = [];
+  if (!batch.length) return;
+
+  const probe = document.createElement('style');
+  probe.textContent = '[data-motion-deco],[data-motion-deco] *{pointer-events:auto!important}';
+  document.head.appendChild(probe);
+
+  let requeued = 0;
+  for (const el of batch) {
+    const r = el.getBoundingClientRect();
+    if (r.width < 6 || r.height < 6) { el.__mChecked = 1; continue; }
+
+    /* elementFromPoint is a viewport function, so points outside it yield nothing and a
+       note straddling an edge is judged on whatever part happens to be showing. What
+       matters is having enough of it testable to trust the answer — not having all of
+       it, which was the first version of this check and was wrong: a note sitting across
+       the fold never becomes wholly visible at that scroll position, so it burned every
+       retry and was written off unexamined. "three hours for one margin" is exactly such
+       a note, 35px tall with its last 8px below the fold, and it scores 9 blocked points
+       the moment it is actually measured. */
+    let blocked = 0, tested = 0;
+    for (let i = 1; i <= 5; i++) {
+      for (let j = 1; j <= 5; j++) {
+        const x = r.left + (r.width * i) / 6;
+        const y = r.top + (r.height * j) / 6;
+        if (x < 0 || y < 0 || x > innerWidth || y > innerHeight) continue;
+        tested++;
+        const hit = document.elementFromPoint(x, y);
+        if (!hit || hit === el || el.contains(hit) || hit.contains(el)) continue;
+        if (isLegible(hit)) blocked++;
+      }
+    }
+
+    /* Under a third of the grid is too thin a sample to convict on. Put it back and
+       look again once scrolling settles; the cap keeps that bounded for a note that is
+       never going to be more visible than it already is. */
+    if (tested < 8) {
+      el.__mTries = (el.__mTries || 0) + 1;
+      if (el.__mTries < 6) { noteQueue.push(el); requeued = 1; }
+      else el.__mChecked = 1;
+      continue;
+    }
+    el.__mChecked = 1;
+    /* Three of twelve sample points is enough to mean the note is unreadable where it
+       is; below that it is a corner clipping a descender, which the design does on
+       purpose all over the page. */
+    if (blocked >= 3) {
+      el.style.opacity = '0';
+      el.setAttribute('data-m-decluttered', '');
+    }
+  }
+  probe.remove();
+  /* Anything put back is waiting on a scroll to finish, so a plain timer rather than
+     another idle callback — idle time is exactly when scrolling has stopped, which is
+     the moment the note's position is finally worth reading. */
+  if (requeued) schedule(260);
+}
+
+/* Nothing may be judged until the webfonts have landed. The page is set in Caveat, a
+   script face whose metrics differ enormously from the fallback, so text measured during
+   the swap wraps to a different number of lines and sits at a different height — a note
+   tested then is being tested against a layout that is about to stop existing. Judged
+   too early, "three hours for one margin" reads as clear and is marked clean for good;
+   the observer only reports a note once, so there is no second chance.
+
+   Idle after that, because this forces layout and none of it is urgent. */
+function schedule(delay) {
+  if (noteScheduled) return;
+  noteScheduled = 1;
+  const run = () => {
+    if (typeof requestIdleCallback === 'function') requestIdleCallback(declutter, { timeout: 800 });
+    else setTimeout(declutter, 0);
+  };
+  const fonts = (document.fonts && document.fonts.ready) || Promise.resolve();
+  fonts.then(() => setTimeout(run, delay), () => setTimeout(run, delay));
+}
+
+function queueNote(el) {
+  if (el.__mChecked) return;
+  noteQueue.push(el);
+  schedule(180);
 }
 
 /* ── the page turn ────────────────────────────────────────────────────────────────────
@@ -564,8 +700,14 @@ export function initScrapMotion() {
      leave and re-enter the viewport. */
   idleIo = new IntersectionObserver((ents) => {
     for (const e of ents) {
-      if (e.isIntersecting) e.target.removeAttribute('data-m-idle');
-      else e.target.setAttribute('data-m-idle', '');
+      if (e.isIntersecting) {
+        e.target.removeAttribute('data-m-idle');
+        /* First time on screen is also the first time its position can be hit-tested
+           against real laid-out content — off-screen there is nothing to test against. */
+        if (e.target.__mNote) queueNote(e.target);
+      } else {
+        e.target.setAttribute('data-m-idle', '');
+      }
     }
   }, { rootMargin: '15% 0px' });
 
