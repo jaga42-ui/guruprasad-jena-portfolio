@@ -40,6 +40,25 @@
    frame. Those stay one-shot: they fire once on first entry, cost a few hundred
    milliseconds, and are never touched again. See RECIPE_ONESHOT in scrap-motion.js.  */
 
+/* ═══════════════════════════════════════════ a tag needs room to hang ═══════════ */
+
+/* The scrapbook labels are absolutely positioned at `bottom: -1.85rem` so they hang off
+   the bottom edge of their scrap like a strip of tape folded over it. That overhang is
+   the design and it should stay — but the tags are around 58px tall, so only 30px of
+   that height is actually below the edge. The other 28px sits *inside* the card, on top
+   of whatever the last row of content happens to be.
+
+   On Skills that is "Queries that stay fast", the sixth item of the longest card, buried
+   under "Data is the core. I treat it with care." The cards with fewer rows get away
+   with it, which is why this reads as one broken card rather than as a pattern.
+
+   Reserving the overhang as padding fixes every card at once, on every page, at every
+   width — the tag keeps hanging over the edge, and no text is ever underneath it.
+   !important because the padding it overrides is a shorthand in an inline style. */
+[data-motion="scrap"]:has(> [data-motion="tag"]) {
+  padding-bottom: 2.6rem !important;
+}
+
 /* ══════════════════════════════════════════ motion must not grow the page ═══════ */
 
 /* Transforms count toward scrollable overflow, and almost every arrival keyframe here
