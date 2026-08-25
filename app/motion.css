@@ -52,6 +52,16 @@
   nav[aria-label="Primary"] a {
     padding-block: 0.35rem;
   }
+
+  /* The section rail becomes a bottom bar on a phone, and globals.css gives every child
+     `flex: 1 1 0` — so a sixth item is not an addition, it is a 20% narrowing of the five
+     that were already tuned to fit. At 320px that is ~53px a column against a "Résumé"
+     label set in 0.2em-tracked uppercase with white-space: nowrap, which does not fit.
+
+     So the rail carries the résumé on the surface where it is a rail, and the bottom bar
+     stays at five. Nothing is lost: the hero puts the résumé one tap away on Home, and
+     Contact — which is in the bar from every page — lists it again. */
+  [data-r="railaction"] { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════ a tag needs room to hang ═══════════ */
