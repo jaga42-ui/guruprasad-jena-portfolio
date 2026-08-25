@@ -23,11 +23,11 @@ export const PROJECTS = [
    ],
    [
     "0",
-    "listings scraped from pages"
+    "pages scraped — listings come from provider APIs"
    ],
    [
     "11,500",
-    "postings the filter was tested on"
+    "postings the scam filter was tested against"
    ]
   ],
   "decisions": [
@@ -136,7 +136,7 @@ export const PROJECTS = [
   "shipped": "2026",
   "repoNote": "Source private — service keys and abuse limits ship with it. Walkthrough on request.",
   "accent": "#6fc4b8",
-  "summary": "140+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
+  "summary": "130+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
   "failed": "Loading every engine up front. The first build shipped megabytes of WASM to someone who only wanted to rotate one page, and a mid-range phone ran out of memory on a large PDF.",
   "changed": "Each tool is its own focused page that lazy-loads only the core it needs, heavy work moved off the main thread, and every tool is a single drop zone with one big download button.",
   "learned": "Bundle size is user experience. Local-first isn’t a constraint — it’s the reason there is no upload to intercept and no file-size cap to enforce.",
@@ -148,7 +148,7 @@ export const PROJECTS = [
    ],
    [
     "0",
-    "files uploaded"
+    "files uploaded — tools run in your browser"
    ],
    [
     "43",
@@ -263,7 +263,7 @@ export const PROJECTS = [
    ],
    [
     "0",
-    "client-side data fetches"
+    "client-side fetches — pages ship prerendered"
    ]
   ],
   "decisions": [
@@ -360,7 +360,7 @@ export const PROJECTS = [
   "stats": [
    [
     "409",
-    "on a duplicate accept"
+    "HTTP on a duplicate accept — one winner"
    ],
    [
     "90",

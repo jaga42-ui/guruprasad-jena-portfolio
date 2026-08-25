@@ -13,12 +13,13 @@ import { SITE, OG_IMAGE } from '@/app/seo';
    description says "two repos open" rather than the older "repos public" —
    this string is the copy under the link card everywhere it gets shared. */
 const DESCRIPTION =
-  'Full-stack developer. Four products live, two repos open. A cinematic engineering scrapbook.';
+  'Full-stack developer — TypeScript, Next.js, Node.js, MongoDB. Four products live, '
+  + 'two repos open. A cinematic engineering scrapbook.';
 
 export const metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: 'Guruprasad Jena — Scrapbook',
+    default: 'Guruprasad Jena — Full-Stack Developer',
     template: '%s',
   },
   description: DESCRIPTION,

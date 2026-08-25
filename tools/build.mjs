@@ -29,10 +29,10 @@ const PAGES = [
 /* One-line summaries for per-route metadata. The sources carry a <title> but no
    description; these are the §5 character notes from the handoff, verbatim. */
 const DESCRIPTIONS = {
-  Home: 'Full-stack developer. Four products live, two repos open — a scrapbook of the work and the person behind it.',
+  Home: 'Full-stack developer — TypeScript, Next.js, Node.js, MongoDB. Four products live: job-matching, developer tools, editorial and an emergency-response network.',
   About: 'The long-form version: how I got here, what I studied, and what I keep coming back to.',
-  Skills: 'The stack I build with and the tools I actually reach for, rated honestly.',
-  Projects: 'Four case files — Umbrix, GetFreeToolsAI, Veritas Picks and Sahayam — plotted as blueprint sheets.',
+  Skills: 'The full-stack toolkit — React and Next.js on the front, Node and Express behind it, MongoDB and Redis underneath, and the AI tooling I actually ship with.',
+  Projects: 'Four shipped products — Umbrix, GetFreeToolsAI, Veritas Picks and Sahayam — each with its architecture, the decisions behind it, what failed and what I would rebuild.',
   Contact: 'Open to work from Odisha, India. One address, three links, and a reply within the day.',
 };
 

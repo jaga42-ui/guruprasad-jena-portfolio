@@ -76,11 +76,11 @@
    ],
    [
     "0",
-    "listings scraped from pages"
+    "pages scraped — listings come from provider APIs"
    ],
    [
     "11,500",
-    "postings the filter was tested on"
+    "postings the scam filter was tested against"
    ]
   ],
   "decisions": [
@@ -141,7 +141,7 @@
   "repoNote": "Source private — service keys and abuse limits ship with it. Walkthrough on request.",
   "accent": "#6fc4b8",
   "accent2": "#b6f0e6",
-  "summary": "140+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
+  "summary": "130+ PDF, image, calculator, text and developer tools, each running entirely inside the browser tab — no signup, no watermark, no daily limit, and nothing ever sent to a server.",
   "problem": "Every “free” file tool is a paywall in costume: two tasks a day, a watermark across the output, an email before download — and your bank statement sitting on someone else’s server.",
   "breakthrough": "There is no server in the loop. PDF, image and OCR work runs on-device through WebAssembly, which turns privacy from a promise into something you can verify in the Network tab.",
   "failed": "Loading every engine up front. The first build shipped megabytes of WASM to someone who only wanted to rotate one page, and a mid-range phone ran out of memory on a large PDF.",
@@ -206,7 +206,7 @@
    ],
    [
     "0",
-    "files uploaded"
+    "files uploaded — tools run in your browser"
    ],
    [
     "43",
@@ -333,7 +333,7 @@
    ],
    [
     "0",
-    "client-side data fetches"
+    "client-side fetches — pages ship prerendered"
    ]
   ],
   "decisions": [
@@ -452,7 +452,7 @@
   "stats": [
    [
     "409",
-    "on a duplicate accept"
+    "HTTP on a duplicate accept — one winner"
    ],
    [
     "90",

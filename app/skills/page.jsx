@@ -3,7 +3,7 @@ import { pageMeta } from '@/app/seo';
 
 export const metadata = pageMeta(
   "Skills — Guruprasad Jena",
-  "The stack I build with and the tools I actually reach for, rated honestly.",
+  "The full-stack toolkit — React and Next.js on the front, Node and Express behind it, MongoDB and Redis underneath, and the AI tooling I actually ship with.",
   "/skills",
 );
 

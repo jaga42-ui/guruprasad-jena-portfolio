@@ -40,6 +40,20 @@
    frame. Those stay one-shot: they fire once on first entry, cost a few hundred
    milliseconds, and are never touched again. See RECIPE_ONESHOT in scrap-motion.js.  */
 
+/* ════════════════════════════════════════════ hero actions: tap targets ═════════ */
+
+/* The five primary actions in the hero are mono links set at 0.72rem, which lays out as
+   a 15px-tall box. That is fine to click and too small to tap — WCAG 2.2 asks for 24px
+   in the smaller dimension, and a recruiter opening this on a phone is the single most
+   likely visitor. Padding the block axis brings them to ~26px without moving anything:
+   the row already wraps on its own gap, and the links are inline so the extra height
+   costs no layout elsewhere. */
+@media (max-width: 700px), (pointer: coarse) {
+  nav[aria-label="Primary"] a {
+    padding-block: 0.35rem;
+  }
+}
+
 /* ═══════════════════════════════════════════ a tag needs room to hang ═══════════ */
 
 /* The scrapbook labels are absolutely positioned at `bottom: -1.85rem` so they hang off
