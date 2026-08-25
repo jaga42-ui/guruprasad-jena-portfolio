@@ -11,12 +11,14 @@
 .hhv5:hover { transform: translateY(-3px) !important; }
 .hhv6:hover { transform: rotate(2deg) translateY(-5px) !important; }
 .hhv7:hover { transform: rotate(-3deg) translateY(-4px) !important; }
-.hhv8:hover { transform: rotate(-3deg) translateY(-6px) !important; }
-.hhv9:hover { transform: rotate(2deg) translateY(-6px) !important; }
-.hhv10:hover { transform: rotate(6deg) translateY(-6px) !important; }
-.hhv11:hover { transform: rotate(5deg) translateY(-6px) !important; }
-.hhv12:hover { transform: rotate(-6deg) translateY(-4px) !important; }
-.hhv13:hover { transform: rotate(-1deg) translateY(-5px) !important; }
+.hhv8:hover { color: #fbcfa6 !important; border-color: #fbcfa6 !important; }
+.hhv9:hover { color: #e58d55 !important; }
+.hhv10:hover { transform: rotate(-3deg) translateY(-6px) !important; }
+.hhv11:hover { transform: rotate(2deg) translateY(-6px) !important; }
+.hhv12:hover { transform: rotate(6deg) translateY(-6px) !important; }
+.hhv13:hover { transform: rotate(5deg) translateY(-6px) !important; }
+.hhv14:hover { transform: rotate(-6deg) translateY(-4px) !important; }
+.hhv15:hover { transform: rotate(-1deg) translateY(-5px) !important; }
 
 /* about */
 .ahv1:hover { transform: translateX(-7px) !important; }
@@ -37,14 +39,15 @@
 /* skills */
 .shv1:hover { transform: translateX(-7px) !important; }
 .shv2:hover { transform: rotate(0.6deg) translateY(-7px) !important; }
-.shv3:hover { transform: rotate(-1.4deg) translateY(-7px) !important; }
-.shv4:hover { transform: rotate(1.5deg) translateY(-7px) !important; }
-.shv5:hover { transform: rotate(-0.6deg) translateY(-7px) !important; }
-.shv6:hover { transform: rotate(0.5deg) translateY(-7px) !important; }
-.shv7:hover { transform: translateY(-2px) !important; border-color: rgba(229,141,85,0.4) !important; }
-.shv8:hover { transform: rotate(-1.2deg) translateY(-7px) !important; }
-.shv9:hover { transform: rotate(0.7deg) translateY(-7px) !important; }
-.shv10:hover { transform: rotate(-2deg) translateY(-6px) !important; }
+.shv3:hover { transform: rotate(-1.1deg) translateY(-7px) !important; }
+.shv4:hover { transform: rotate(-1.4deg) translateY(-7px) !important; }
+.shv5:hover { transform: rotate(1.5deg) translateY(-7px) !important; }
+.shv6:hover { transform: rotate(-0.6deg) translateY(-7px) !important; }
+.shv7:hover { transform: rotate(0.5deg) translateY(-7px) !important; }
+.shv8:hover { transform: translateY(-2px) !important; border-color: rgba(229,141,85,0.4) !important; }
+.shv9:hover { transform: rotate(-1.2deg) translateY(-7px) !important; }
+.shv10:hover { transform: rotate(0.7deg) translateY(-7px) !important; }
+.shv11:hover { transform: rotate(-2deg) translateY(-6px) !important; }
 
 /* projects */
 .phv1:hover { transform: translateX(-7px) !important; }

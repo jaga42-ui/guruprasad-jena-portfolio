@@ -3,7 +3,7 @@ import { pageMeta } from '@/app/seo';
 
 export const metadata = pageMeta(
   "Projects — Guruprasad Jena",
-  "Four case files — Umbrix, GetFreeToolsAI, Veritas Picks and Sahayam — plotted as blueprint sheets.",
+  "Four shipped products — Umbrix, GetFreeToolsAI, Veritas Picks and Sahayam — each with its architecture, the decisions behind it, what failed and what I would rebuild.",
   "/projects",
 );
 
